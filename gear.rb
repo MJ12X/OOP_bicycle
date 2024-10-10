@@ -1,6 +1,4 @@
-# add a method onto the gear class that allows me to calculate the gear inches to compare bicycles that differ in both gearing and wheel size
-#gear inches = wheel diameter * gear ratio
-#wheel diameter = rim diameter + twice tire diameter
+# create a method to calculate diameters from an array
 
 class Gear
   attr_reader :chainring, :cog, :rim, :tire
@@ -20,5 +18,24 @@ class Gear
   end
 end
 
+class ObscuringReferences
+  attr_reader :data
+  def initialize(data)
+  @data = data
+  end
+
+  def diameters
+    data.collect {|cell| cell[0] + (cell[1] * 2)}
+  end
+end
+
+  wheel_data = [
+    [26, 1.5],
+    [24, 1.25],
+    [20, 1.75]
+  ]
+  obscuring_references = ObscuringReferences.new(wheel_data)
+  diamaters = obscuring_references.diameters
+  puts diamaters
   puts Gear.new(52,11,26,1.5).gear_inches
   puts Gear.new(52,11,24,1.25).gear_inches
