@@ -18,24 +18,23 @@ class Gear
   end
 end
 
-class ObscuringReferences
-  attr_reader :data
+class RevealingReferences
+  attr_reader :wheels
   def initialize(data)
-  @data = data
+  @wheels = wheelify(data)
   end
 
   def diameters
-    data.collect {|cell| cell[0] + (cell[1] * 2)}
+    wheels.collect {|wheel| wheel.rim +(wheel.tire * 2)}
+  end
+
+  Wheel = Struct.new(:rim, :tire)
+  def wheelify(data)
+    data.collect {|cell| Wheel.new(cell[0], cell[1])}
   end
 end
 
-  wheel_data = [
-    [26, 1.5],
-    [24, 1.25],
-    [20, 1.75]
-  ]
-  obscuring_references = ObscuringReferences.new(wheel_data)
-  diamaters = obscuring_references.diameters
-  puts diamaters
+
+
   puts Gear.new(52,11,26,1.5).gear_inches
   puts Gear.new(52,11,24,1.25).gear_inches
